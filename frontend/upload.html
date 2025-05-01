@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload Resume & JD</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Load PDF.js for PDF reading -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>
+    // Set up the global worker path for PDF.js
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
+  </script>
+</head>
+<body>
+  <h1>Upload Your Resume & Job Description</h1>
+
+  <div class="upload-box">
+    <label for="resumeFile">Resume (PDF):</label>
+    <input type="file" id="resumeFile" accept="application/pdf" />
+
+    <label for="jdFile">Job Description (PDF or TXT):</label>
+    <input type="file" id="jdFile" accept="application/pdf,.txt" />
+
+    <button id="uploadBtn">Continue</button>
+    <p id="uploadStatus"></p>
+  </div>
+
+  <script type="module">
+    // Handle upload and store text in localStorage
+    document.getElementById("uploadBtn").addEventListener("click", async () => {
+      console.log("[upload] Button clicked");
+
+      const resumeFile = document.getElementById("resumeFile").files[0];
+      const jdFile = document.getElementById("jdFile").files[0];
+      const status = document.getElementById("uploadStatus");
+
+      // Check if resume is uploaded
+      if (!resumeFile) {
+        status.textContent = "Please upload your resume.";
+        console.warn("[upload] Resume file missing");
+        return;
+      }
+
+      try {
+        status.textContent = "Extracting text...";
+        console.log("[upload] Starting extraction...");
+
+        const resumeText = await extractTextFromFile(resumeFile);
+        const jdText = jdFile ? await extractTextFromFile(jdFile) : "";
+
+        console.log("[upload] Extraction complete");
+        console.log("[upload] Resume characters:", resumeText.length);
+        console.log("[upload] JD characters:", jdText.length);
+
+        // Save extracted text to localStorage
+        localStorage.setItem("resumeText", resumeText);
+        localStorage.setItem("jdText", jdText);
+
+        status.textContent = "✅ Upload successful. Redirecting...";
+        setTimeout(() => {
+          window.location.href = "question_setup.html";
+        }, 1000);
+      } catch (err) {
+        console.error("[upload] Error during extraction:", err);
+        status.textContent = "Error reading files. See console.";
+      }
+    });
+
+    // Extracts text from PDF or TXT files
+    async function extractTextFromFile(file) {
+      console.log("[extractor] Reading:", file.name);
+
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = async (event) => {
+          try {
+            // PDF extraction
+            if (file.type === "application/pdf") {
+              const pdfData = new Uint8Array(event.target.result);
+              const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+              let fullText = "";
+
+              for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const content = await page.getTextContent();
+                const text = content.items.map(item => item.str).join(" ");
+                fullText += text + " ";
+              }
+
+              resolve(fullText.slice(0, 3000)); // Limit text size
+            } else {
+              // TXT file
+              resolve(event.target.result.slice(0, 3000));
+            }
+          } catch (error) {
+            reject(error);
+          }
+        };
+
+        // Choose read method
+        if (file.type === "application/pdf") {
+          reader.readAsArrayBuffer(file);
+        } else {
+          reader.readAsText(file);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

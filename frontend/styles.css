@@ -1,0 +1,183 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    margin: 0;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  h1, h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Landing Page */
+  .rules-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 30px;
+    margin: 30px auto;
+    width: 60%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    line-height: 1.6;
+  }
+  
+  .rules-box ul {
+    padding-left: 20px;
+  }
+  
+  .start-btn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .start-btn:hover {
+    background: #43a047;
+  }
+  
+  footer {
+    margin-top: 60px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  /* Upload Page */
+  .upload-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 50%;
+    margin: 30px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .upload-box input[type="file"] {
+    padding: 6px;
+  }
+  
+  #uploadBtn {
+    background: #4caf50;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #uploadStatus {
+    color: #f44336;
+    font-weight: bold;
+  }
+  
+  /* Question Setup Page */
+  .question-setup-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 50%;
+    margin: 30px auto;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .question-setup-box input[type="number"] {
+    width: 60px;
+    text-align: center;
+  }
+  
+  /* Interview Page */
+  #fixedWebcamBox {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #fff;
+    border: 2px solid #2196f3;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 1000;
+    width: 220px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  }
+  
+  #videoElement {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  #interviewTimerDisplay {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #e91e63;
+    margin-top: 8px;
+  }
+  
+  /* Questions / Feedback */
+  .question-block {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 16px auto;
+    width: 70%;
+    border-radius: 6px;
+    text-align: left;
+  }
+  
+  .question-block textarea {
+    width: 100%;
+    height: 80px;
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  
+  .feedback {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    white-space: pre-wrap;
+  }
+  
+  /* Report */
+  #reportContainer {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 80%;
+    margin: 20px auto;
+    text-align: left;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.08);
+  }
+  
+  #generateReportBtn, #downloadReportBtn {
+    background: #9c27b0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #downloadReportBtn {
+    background: #ff9800;
+  }
+  

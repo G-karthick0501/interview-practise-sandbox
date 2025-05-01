@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interview In Progress</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Load PDF.js for optional fallback resume parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
+  </script>
+</head>
+<body>
+  <h1>Live Interview Session</h1>
+
+  <!-- ✅ Fixed Webcam + Timer Box (top-right) -->
+  <div id="fixedWebcamBox">
+    <video id="videoElement" autoplay muted></video>
+    <div id="interviewTimerDisplay">Time: 00:00</div>
+    <div style="text-align:center; margin-top: 8px;">
+      <button id="startWebcamBtn">🎥 Start</button>
+      <button id="stopWebcamBtn" disabled>⏹️ Stop</button>
+    </div>
+  </div>
+
+  <!-- ✅ Timer Controls (visible for debug/fallback) -->
+  <section>
+    <label>Time Limit (min):</label>
+    <input type="number" id="interviewTimeLimit" value="10" min="1" max="60" />
+    <button id="resetTimerBtn">Reset Timer</button>
+    <button id="stopInterviewBtn" disabled>Stop Interview</button>
+  </section>
+
+  <!-- ✅ Questions Output -->
+  <section>
+    <h2>Generated Questions</h2>
+    <div id="questionsContainer">Loading questions...</div>
+    <button id="evaluateBtn" disabled>Evaluate Answers</button>
+  </section>
+
+  <!-- ✅ Report Output -->
+  <section>
+    <h2>Evaluation Report</h2>
+    <div id="reportContainer"></div>
+    <button id="generateReportBtn" style="display:none;">Generate Report</button>
+    <button id="downloadReportBtn" style="display:none;">Download PDF</button>
+  </section>
+
+  <!-- ✅ Main Orchestration Logic -->
+  <script type="module" src="logic/core.js"></script>
+</body>
+</html>

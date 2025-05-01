@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interview Setup</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Configure Your Interview</h1>
+
+  <div class="question-setup-box">
+    <label>Technical Questions:</label>
+    <input type="number" id="techQty" min="0" max="10" value="3" />
+
+    <label>Behavioral Questions:</label>
+    <input type="number" id="behQty" min="0" max="10" value="2" />
+
+    <label>Situational Questions:</label>
+    <input type="number" id="sitQty" min="0" max="10" value="1" />
+
+    <label>Interview Time Limit (minutes):</label>
+    <input type="number" id="interviewTimeLimit" min="1" max="60" value="10" />
+
+    <button id="proceedBtn">Start Interview</button>
+    <p id="setupStatus"></p>
+  </div>
+
+  <script type="module">
+    // Handle click on the "Start Interview" button
+    document.getElementById("proceedBtn").addEventListener("click", () => {
+      console.log("[setup] Proceed button clicked");
+
+      const tech = +document.getElementById("techQty").value;
+      const beh = +document.getElementById("behQty").value;
+      const sit = +document.getElementById("sitQty").value;
+      const time = +document.getElementById("interviewTimeLimit").value;
+      const status = document.getElementById("setupStatus");
+
+      // Simple validation
+      if (tech + beh + sit === 0) {
+        status.textContent = "Please select at least one question.";
+        console.warn("[setup] No questions selected");
+        return;
+      }
+
+      if (time < 1) {
+        status.textContent = "Time must be at least 1 minute.";
+        console.warn("[setup] Invalid time:", time);
+        return;
+      }
+
+      // Save values to localStorage
+      localStorage.setItem("techQty", tech);
+      localStorage.setItem("behQty", beh);
+      localStorage.setItem("sitQty", sit);
+      localStorage.setItem("interviewTimeLimit", time);
+
+      console.log("[setup] Stored to localStorage:", { tech, beh, sit, time });
+
+      status.textContent = "✅ Setup saved. Redirecting...";
+      setTimeout(() => {
+        window.location.href = "interview.html";
+      }, 800);
+    });
+  </script>
+</body>
+</html>
